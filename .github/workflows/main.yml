@@ -6,7 +6,6 @@ on:
     branches: ['master']
 env:
   app: "Accept:application/vnd.github.v3+json"
-  url: "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY"
 
 jobs:
   job1:
@@ -29,5 +28,4 @@ jobs:
     steps:
     - name: Build
       run: |
-        temp=$url
-        curl -sS -H "$app" $temp
+        curl -sS -H $app $GITHUB_API_URL/repos/$GITHUB_REPOSITORY

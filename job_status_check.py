@@ -11,6 +11,7 @@ def update_url_data(response, job_name):
   data = json.loads(response.read().decode())
   indices=[]
   for n in range(data["total_count"]):
+    print(data["jobs"][n]["name"])
     if re.search(job_name, data["jobs"][n]["name"]):
       indices.append(n)
 

@@ -9,13 +9,13 @@ env:
 
 jobs:
   job1:
-    name: Set flag
+    name: Pre-requisite
     runs-on: ubuntu-20.04
     outputs:
       runjob: ${{ steps.check.outputs.runjob }}
 
     steps:
-    - name: First
+    - name: Set flag
       id: check
       run: echo "::set-output name=runjob::yes"
 
@@ -26,6 +26,6 @@ jobs:
     if: needs.job1.outputs.runjob == 'yes'
 
     steps:
-    - name: Build
+    - name: First
       run: |
         curl -sS -H $app $GITHUB_API_URL/repos/$GITHUB_REPOSITORY

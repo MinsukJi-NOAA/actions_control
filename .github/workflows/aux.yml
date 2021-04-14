@@ -13,11 +13,14 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-    - name:
+    - name: Check out codes
+      uses: actions/checkout@v2
+
+    - name: Check job status
       run: |
         jobs_url=$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/jobs
-        echo "jobs_url is $jobs_url"
-        #$(curl -sS -H "$app" $jobs_url | ./job_status_check.py)
+        conclusion=$(curl -sS -H "$app" $jobs_url | ./job_status_check.py "Build")
+        echo "conclusion is $conclusion"
 
 #  stoprunner:
 #    name: Stop ec2 instances

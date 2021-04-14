@@ -19,10 +19,8 @@ jobs:
     - name: Check job status
       run: |
         jobs_url=$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/${{ github.event.workflow_run.id }}/jobs
-        echo "jobs_url is $jobs_url"
-        echo $jobs_url | ./job_status_check.py "Build" 2>&1
-        jobs_url2=$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/${{ github.event.workflow_run.id }}/jobs
-        echo "jobs_url2 is $jobs_url2"
+        conclusion=$(echo $jobs_url | ./job_status_check.py "Build")
+        echo "conlusion is $conclusion"
 
 #  stoprunner:
 #    name: Stop ec2 instances

@@ -28,4 +28,6 @@ jobs:
 
     steps:
     - name: Build
-      run: eval curl -sS -H "$app" $url
+      run: |
+        temp=$url
+        curl -sS -H "$app" $temp

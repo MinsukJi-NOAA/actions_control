@@ -22,6 +22,7 @@ jobs:
 
   job2:
     name: Build
+    needs: job1
     runs-on: ubuntu-20.04
     if: needs.job1.outputs.runjob == 'yes'
 

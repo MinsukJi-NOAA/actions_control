@@ -1,0 +1,30 @@
+name: Pull Request Tests
+on:
+  push:
+    branches: ['master']
+  pull_request:
+    branches: ['master']
+env:
+  app: "Accept:application/vnd.github.v3+json"
+  url: "$GITHUB_API_URL/repos/$GITHUB_REPOSITORY"
+
+jobs:
+  job1:
+    name: Set flag
+    runs-on: ubuntu-20.04
+    outputs:
+      runjob: ${{ steps.check.outputs.runjob }}
+
+    steps:
+    - name: First
+      id: check
+      run: echo "::set-output name=runjob::yes"
+
+  job2:
+    name: Build
+    runs-on: ubuntu-20.04
+    if: needs.job1.outputs.runjob == 'yes'
+
+    steps:
+    - name: Build
+      run: curl -sS -H "$app" $url

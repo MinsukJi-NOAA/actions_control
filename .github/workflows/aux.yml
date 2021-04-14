@@ -18,11 +18,11 @@ jobs:
 
     - name: Check job status
       run: |
-        jobs_url=${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}/jobs
-        echo "jobs_url is $jobs_url"
         jobs_url="$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/jobs"
-        echo "jobs_url is $jobs_url"
-        echo https://api.github.com/repos/MinsukJi-NOAA/actions_control/actions/runs/749704180/jobs | ./job_status_check.py "Build" 2>&1
+        echo $job_url | ./job_status_check.py "Build" 2>&1
+        jobs_url2=$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/jobs
+        echo "$job_url2" | ./job_status_check.py "Build" 2>&1
+        echo $job_url2 | ./job_status_check.py "Build" 2>&1
 
 #  stoprunner:
 #    name: Stop ec2 instances

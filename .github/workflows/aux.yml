@@ -1,4 +1,4 @@
-name: Test Helpers
+name: Test_Helpers
 on:
   workflow_run:
     workflows: ["Pull Request Tests"]
@@ -22,10 +22,15 @@ jobs:
         conclusion=$(echo $jobs_url | ./job_status_check.py "Build")
         echo "conlusion is $conclusion"
 
-#  stoprunner:
-#    name: Stop ec2 instances
-#    runs-on: ubuntu-20.04
-#
-#    steps:
-#    - name:
-#      run:
+  stoprunner:
+    name: Stop ec2 instances
+    runs-on: ubuntu-20.04
+
+    steps:
+    - name: Checkout out codes
+      uses: actions/checkout@v2
+
+    - name: Check job status
+      run: |
+        url=$GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/runs/${{ github.event.workflow_run.id }}
+        echo $url | ./job_status_check.py
